@@ -19,6 +19,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { OrderDetailsSkeleton } from './order-details-skeleton'
+
 export interface OrderDetailsProps {
   orderId: string
   open: boolean
@@ -38,19 +40,14 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
         <DialogDescription>Order details</DialogDescription>
       </DialogHeader>
 
-      {order && (
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
               <TableRow>
                 <TableCell className="text-muted-foreground">Status</TableCell>
                 <TableCell className="flex justify-end">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-slate-400" />
-                    <span className="font-medium text-muted-foreground">
-                      <OrderStatus status={order.status} />
-                    </span>
-                  </div>
+                  <OrderStatus status={order.status} />
                 </TableCell>
               </TableRow>
 
@@ -134,6 +131,8 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
             </TableFooter>
           </Table>
         </div>
+      ) : (
+        <OrderDetailsSkeleton />
       )}
     </DialogContent>
   )
