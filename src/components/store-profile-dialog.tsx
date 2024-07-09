@@ -5,9 +5,9 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import {
-  getManageRestaurant,
-  GetManageRestaurantResponse,
-} from '@/api/get-manage-restaurant'
+  getManagedRestaurant,
+  GetManagedRestaurantResponse,
+} from '@/api/get-managed-restaurant'
 import { udpateProfile } from '@/api/update-profile'
 
 import { Button } from './ui/button'
@@ -35,7 +35,7 @@ export function StoreProfileDialog() {
 
   const { data: managedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
-    queryFn: getManageRestaurant,
+    queryFn: getManagedRestaurant,
     staleTime: Infinity,
     // staleTime: 1000, -> if wanna outofdated the response
   })
@@ -56,12 +56,12 @@ export function StoreProfileDialog() {
     name,
     description,
   }: StoreProfileSchema) {
-    const cached = queryClient.getQueryData<GetManageRestaurantResponse>([
+    const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
       'managed-restaurant',
     ])
 
     if (cached) {
-      queryClient.setQueryData<GetManageRestaurantResponse>(
+      queryClient.setQueryData<GetManagedRestaurantResponse>(
         ['managed-restaurant'],
         {
           ...cached,
@@ -89,7 +89,6 @@ export function StoreProfileDialog() {
   })
 
   async function handleUpdateProfile(data: StoreProfileSchema) {
-    console.log('data', data)
     try {
       await updateProfileFn({
         name: data.name,

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { getManageRestaurant } from '@/api/get-manage-restaurant'
+import { getManagedRestaurant } from '@/api/get-managed-restaurant'
 import { getProfile } from '@/api/get-profile'
 import { signOut } from '@/api/sign-out'
 
@@ -31,7 +31,7 @@ export function AccountMenu() {
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
     useQuery({
       queryKey: ['managed-restaurant'],
-      queryFn: getManageRestaurant,
+      queryFn: getManagedRestaurant,
       staleTime: Infinity,
     })
 
